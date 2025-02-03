@@ -65,5 +65,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textPasswordInput" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/loginButton"
+            app:layout_constraintBottom_toBottomOf="@id/loginButton"
+            app:layout_constraintStart_toStartOf="@id/loginButton"
+            app:layout_constraintEnd_toEndOf="@id/loginButton"
+            android:visibility="invisible"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
