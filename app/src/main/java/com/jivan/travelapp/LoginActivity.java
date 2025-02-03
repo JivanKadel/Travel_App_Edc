@@ -1,11 +1,14 @@
 package com.jivan.travelapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textUsernameLayout;
     private TextInputLayout textPasswordInput;
     private Button loginButton;
+    private ProgressBar progressBar;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,12 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         textUsernameLayout = findViewById(R.id.textUsernameLayout);
         textPasswordInput = findViewById(R.id.textPasswordInput);
         loginButton = findViewById(R.id.loginButton);
+        progressBar = findViewById(R.id.progressBar);
 
         loginButton.setOnClickListener(v -> onLoginClicked());
 
         textUsernameLayout.getEditText().addTextChangedListener(createTextWatcher(textUsernameLayout));
         textPasswordInput.getEditText().addTextChangedListener((createTextWatcher(textPasswordInput)));
-
     }
 
     private void onLoginClicked() {
@@ -44,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
             textPasswordInput.setError("Password cannot be empty");
         }else if(!username.equals("admin") || !password.equals("admin")){
             showErrorDialog();
+        }else{
+            performLogin();
         }
     }
 
@@ -70,6 +76,22 @@ public class LoginActivity extends AppCompatActivity {
         new AlertDialog.Builder(this).setTitle("Login Failed").setMessage("Incorrect username or password")
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+    private void performLogin(){
+        textUsernameLayout.setEnabled(false);
+        textPasswordInput.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.INVISIBLE);
+
+        Handler handler = new Handler();
+        handler.postDelayed(()->{
+            startMainActivity();
+            finish();
+        }, 2000);
+    }
+    private void startMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
 
