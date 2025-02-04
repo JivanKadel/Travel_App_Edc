@@ -21,10 +21,19 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textPasswordInput;
     private Button loginButton;
     private ProgressBar progressBar;
+    private BlogReferences preferences;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = new BlogReferences(this);
+//        if(preferences.isLoggedIn()){
+//            startMainActivity();
+//            finish();
+//            return;
+//        }
+
         setContentView(R.layout.activity_login);
 
         textUsernameLayout = findViewById(R.id.textUsernameLayout);
@@ -52,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
             performLogin();
         }
     }
-
     private TextWatcher createTextWatcher(TextInputLayout textInput) {
         return new TextWatcher() {
             @Override
@@ -71,13 +79,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
     }
-
     private void showErrorDialog() {
         new AlertDialog.Builder(this).setTitle("Login Failed").setMessage("Incorrect username or password")
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
     }
     private void performLogin(){
+        preferences.setLoggedIn(true);
+
         textUsernameLayout.setEnabled(false);
         textPasswordInput.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
