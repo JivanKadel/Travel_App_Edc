@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/sydney_opera"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sydney"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textDate"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/sydney_date"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/mainImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/textDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/sydney_title"
+        />
+    
+    <ImageView
+        android:id="@+id/imageAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/sydney_guy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainImage"
+        android:src="@drawable/avatar"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:id="@+id/sydney_guide_name"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sydney_guide_name"
+        app:layout_constraintTop_toBottomOf="@id/mainImage"
+        app:layout_constraintStart_toEndOf="@id/imageAvatar"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        />
+    <RatingBar
+        android:id="@+id/sydney_guide_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleSmall"
+        android:numStars="5"
+        android:rating="4.4"
+        android:stepSize="0.1"
+        app:layout_constraintTop_toBottomOf="@id/sydney_guide_name"
+        app:layout_constraintStart_toEndOf="@id/imageAvatar"
+        android:layout_marginStart="16dp"
+        />
+    
+    <TextView
+        android:id="@+id/sydney_text_rating"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sydney_rating"
+        app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
+        app:layout_constraintStart_toEndOf="@id/sydney_guide_rating"
+        app:layout_constraintTop_toTopOf="@+id/sydney_guide_rating"
+        android:layout_marginStart="4dp"
+        />
+
+    <TextView
+        android:id="@+id/sydney_views"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sydney_views"
+        app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
+        app:layout_constraintStart_toEndOf="@id/sydney_text_rating"
+        app:layout_constraintTop_toTopOf="@id/sydney_guide_rating"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/gray500"
+        />
+
+    <TextView
+        android:id="@+id/sydney_description"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sydney_desc"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,12 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="main_page_title">This is main page</string>
+    <string name="sydney_opera">Sydney Opera</string>
+    <string name="sydney_date">August 10, 2022</string>
+    <string name="sydney_title">G\'day from Sydney</string>
+    <string name="sydney_guy">sydney guy</string>
+    <string name="sydney_guide_name">Grayson Wells</string>
+    <string name="sydney_rating">4.4</string>
+    <string name="sydney_views">(2687 views)</string>
+    <string name="sydney_desc">Australia is one of the most beautiful place on the planet.</string>
 </resources>
