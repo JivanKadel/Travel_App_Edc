@@ -28,11 +28,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         preferences = new BlogReferences(this);
-//        if(preferences.isLoggedIn()){
-//            startMainActivity();
-//            finish();
-//            return;
-//        }
+        if(preferences.isLoggedIn()){
+            startMainActivity();
+            finish();
+            return;
+        }
 
         setContentView(R.layout.activity_login);
 
