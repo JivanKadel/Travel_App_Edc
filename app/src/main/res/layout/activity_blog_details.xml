@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +11,7 @@
         android:layout_height="250dp"
         android:contentDescription="@string/sydney_opera"
         android:scaleType="centerCrop"
-        android:src="@drawable/sydney"
+        tools:src="@drawable/sydney"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +27,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="@string/sydney_date"
+        tools:text="@string/sydney_date"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/mainImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +44,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="@string/sydney_title"
+        tools:text="@string/sydney_title"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/textDate"
@@ -68,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:contentDescription="@string/sydney_guy"
         android:scaleType="centerCrop"
-        android:src="@drawable/avatar"
+        tools:src="@drawable/avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainImage" />
 
@@ -79,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/sydney_guide_name"
+        tools:text="@string/sydney_guide_name"
         app:layout_constraintStart_toEndOf="@id/imageAvatar"
         app:layout_constraintTop_toBottomOf="@id/mainImage" />
 
@@ -90,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:numStars="5"
-        android:rating="4.4"
+        tools:rating="4.4"
         android:stepSize="0.1"
         app:layout_constraintStart_toEndOf="@id/imageAvatar"
         app:layout_constraintTop_toBottomOf="@id/sydney_guide_name" />
@@ -101,7 +102,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="@string/sydney_rating"
+        tools:text="@string/sydney_rating"
         app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
         app:layout_constraintStart_toEndOf="@id/sydney_guide_rating"
         app:layout_constraintTop_toTopOf="@+id/sydney_guide_rating" />
@@ -112,7 +113,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="@string/sydney_views"
+        tools:text="@string/sydney_views"
         android:textColor="@color/gray500"
         app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
         app:layout_constraintStart_toEndOf="@id/sydney_text_rating"
@@ -126,7 +127,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/sydney_desc"
+        tools:text="@string/sydney_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageAvatar" />
