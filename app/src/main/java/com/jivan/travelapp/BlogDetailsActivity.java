@@ -12,44 +12,92 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
+import java.util.List;
+
 public class BlogDetailsActivity extends AppCompatActivity {
-    public static final String IMAGE_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/images/sydney_image.jpg";
-    public static final String AVATAR_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/avatars/avatar1.jpg";
+    private ImageView imageMain;
+    private ImageView imageAvatar;
+    private ImageView backIcon;
+    private TextView textDate;
+    private TextView textTitle;
+    private TextView textAuthor;
+    private TextView textRating;
+    private RatingBar ratingBar;
+    private TextView totalViews;
+    private TextView textDescription;
+//    public static final String IMAGE_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/images/sydney_image.jpg";
+//    public static final String AVATAR_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/avatars/avatar1.jpg";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_details);
 
-        ImageView imageMain = findViewById(R.id.mainImage);
-        Glide.with(this).load(IMAGE_URL).transition(DrawableTransitionOptions.withCrossFade()).into(imageMain);
+        imageMain = findViewById(R.id.mainImage);
+//        Glide.with(this).load(IMAGE_URL).transition(DrawableTransitionOptions.withCrossFade()).into(imageMain);
 //        imageMain.setImageResource(R.drawable.sydney);
 
-        ImageView imageAvatar = findViewById(R.id.imageAvatar);
-        Glide.with(this).load(AVATAR_URL).transform(new CircleCrop()).into(imageAvatar);
-//        imageAvatar.setImageResource(R.drawable.avatar);
+        imageAvatar = findViewById(R.id.imageAvatar);
+//        Glide.with(this).load(AVATAR_URL).transform(new CircleCrop()).into(imageAvatar);
 
-        TextView textDate = findViewById(R.id.textDate);
+        textDate = findViewById(R.id.textDate);
         textDate.setText("August 2, 2019");
 
-        TextView textTitle = findViewById(R.id.textTitle);
+        textTitle = findViewById(R.id.textTitle);
         textTitle.setText("G'day from Sydney");
 
-        TextView textAuthor = findViewById(R.id.sydney_guide_name);
+        textAuthor = findViewById(R.id.sydney_guide_name);
         textAuthor.setText("Grayson Wells");
 
-        TextView ratingText = findViewById(R.id.sydney_text_rating);
-        ratingText.setText("4.4");
+        textRating = findViewById(R.id.sydney_text_rating);
+        textRating.setText("4.4");
 
-        RatingBar sydneyRating = findViewById(R.id.sydney_guide_rating);
-        sydneyRating.setRating(4.4F);
+        ratingBar = findViewById(R.id.sydney_guide_rating);
+        ratingBar.setRating(4.4F);
 
-        TextView totalViews = findViewById(R.id.sydney_views);
+        totalViews = findViewById(R.id.sydney_views);
         totalViews.setText("(2687 views)");
 
-        TextView sydneyDesc = findViewById(R.id.sydney_description);
-        sydneyDesc.setText("Australia is one of the most beautiful place on the planet.");
+        textDescription = findViewById(R.id.sydney_description);
+        textDescription.setText("Australia is one of the most beautiful place on the planet.");
 
-        ImageView backIcon = findViewById(R.id.back_arrow);
-        backIcon.setOnClickListener(v->finish());
+        backIcon = findViewById(R.id.back_arrow);
+        backIcon.setOnClickListener(v -> finish());
+
+        loadData();
+
+    }
+
+    public void loadData() {
+        BlogHttpClient.INSTANCE.loadBlogArticles(new BlogArticlesCallback() {
+            @Override
+            public void onSuccess(List<Blog> blogList) {
+                runOnUiThread(() -> showData(blogList.get(0)));
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
+    public void showData(Blog blog) {
+        textTitle.setText(blog.getTitle());
+        textAuthor.setText(blog.getAuthor().getName());
+        textDate.setText(blog.getDate());
+        textRating.setText(String.valueOf(blog.getRating()));
+        totalViews.setText(String.format("(%d views)", blog.getViews()));
+        textDescription.setText(blog.getDescription());
+        ratingBar.setRating(blog.getRating());
+
+        Glide.with(this).load(blog.getImage()).
+                transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageMain);
+
+        Glide.with(this)
+                .load(blog.getAuthor().getAvatar())
+                .transform(new CircleCrop()).transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageAvatar);
     }
 }
