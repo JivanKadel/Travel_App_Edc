@@ -3,8 +3,8 @@ package com.jivan.travelapp;
 public class Blog {
     private String title;
     private String date;
-    private String views;
-    private String rating;
+    private int views;
+    private float rating;
     private String image;
     private String description;
     private Author author;
@@ -15,10 +15,10 @@ public class Blog {
     public String getDate() {
         return date;
     }
-    public String getViews() {
+    public int getViews() {
         return views;
     }
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
     public String getImage() {
