@@ -43,5 +43,7 @@ dependencies {
     implementation(libs.constraintlayout.v214)
     implementation(libs.material.v190)
     implementation(libs.glide)
+    implementation(libs.okhttp)
+    implementation(libs.gson)
 
 }
