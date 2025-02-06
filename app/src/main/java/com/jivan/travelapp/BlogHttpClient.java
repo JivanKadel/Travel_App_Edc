@@ -17,7 +17,7 @@ public class BlogHttpClient {
     private Executor executor;
     private OkHttpClient client;
     private Gson gson;
-    public static final BlogHttpClient INSTANT = new BlogHttpClient();
+    public static final BlogHttpClient INSTANCE = new BlogHttpClient();
 
     private static final String baseUrl = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/";
 
