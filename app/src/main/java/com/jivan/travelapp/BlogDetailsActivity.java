@@ -1,6 +1,7 @@
 package com.jivan.travelapp;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -82,7 +84,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError() {
-
+                runOnUiThread(()->showErrorSnackBar());
             }
         });
     }
@@ -105,5 +107,17 @@ public class BlogDetailsActivity extends AppCompatActivity {
                 .load(blog.getAuthor().getAvatar())
                 .transform(new CircleCrop()).transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageAvatar);
+    }
+
+    private void showErrorSnackBar(){
+        View rootView = findViewById(android.R.id.content);
+        Snackbar errorSnack = Snackbar.make(rootView, "Error loading blog articles", Snackbar.LENGTH_INDEFINITE);
+        errorSnack.setActionTextColor(getResources().getColor(R.color.orange500));
+
+        errorSnack.setAction("Retry", v->{
+            loadData();
+            errorSnack.dismiss();
+        });
+        errorSnack.show();
     }
 }
