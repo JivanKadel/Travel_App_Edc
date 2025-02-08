@@ -11,10 +11,10 @@
         android:layout_height="250dp"
         android:contentDescription="@string/sydney_opera"
         android:scaleType="centerCrop"
-        tools:src="@drawable/sydney"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/sydney" />
 
     <TextView
         android:id="@+id/textDate"
@@ -27,11 +27,11 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        tools:text="@string/sydney_date"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/mainImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/sydney_date" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -44,12 +44,12 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        tools:text="@string/sydney_title"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/textDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/sydney_title" />
 
     <ImageView
         android:id="@+id/back_arrow"
@@ -69,9 +69,9 @@
         android:layout_marginTop="16dp"
         android:contentDescription="@string/sydney_guy"
         android:scaleType="centerCrop"
-        tools:src="@drawable/avatar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainImage" />
+        app:layout_constraintTop_toBottomOf="@id/mainImage"
+        tools:src="@drawable/avatar" />
 
     <TextView
         android:id="@+id/sydney_guide_name"
@@ -80,9 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        tools:text="@string/sydney_guide_name"
         app:layout_constraintStart_toEndOf="@id/imageAvatar"
-        app:layout_constraintTop_toBottomOf="@id/mainImage" />
+        app:layout_constraintTop_toBottomOf="@id/mainImage"
+        tools:text="@string/sydney_guide_name" />
 
     <RatingBar
         android:id="@+id/sydney_guide_rating"
@@ -91,10 +91,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:numStars="5"
-        tools:rating="4.4"
         android:stepSize="0.1"
         app:layout_constraintStart_toEndOf="@id/imageAvatar"
-        app:layout_constraintTop_toBottomOf="@id/sydney_guide_name" />
+        app:layout_constraintTop_toBottomOf="@id/sydney_guide_name"
+        tools:rating="4.4" />
 
     <TextView
         android:id="@+id/sydney_text_rating"
@@ -102,10 +102,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        tools:text="@string/sydney_rating"
         app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
         app:layout_constraintStart_toEndOf="@id/sydney_guide_rating"
-        app:layout_constraintTop_toTopOf="@+id/sydney_guide_rating" />
+        app:layout_constraintTop_toTopOf="@+id/sydney_guide_rating"
+        tools:text="@string/sydney_rating" />
 
     <TextView
         android:id="@+id/sydney_views"
@@ -113,11 +113,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        tools:text="@string/sydney_views"
         android:textColor="@color/gray500"
         app:layout_constraintBottom_toBottomOf="@id/sydney_guide_rating"
         app:layout_constraintStart_toEndOf="@id/sydney_text_rating"
-        app:layout_constraintTop_toTopOf="@id/sydney_guide_rating" />
+        app:layout_constraintTop_toTopOf="@id/sydney_guide_rating"
+        tools:text="@string/sydney_views" />
 
     <TextView
         android:id="@+id/sydney_description"
@@ -127,10 +127,18 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        tools:text="@string/sydney_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageAvatar" />
+        app:layout_constraintTop_toBottomOf="@id/imageAvatar"
+        tools:text="@string/sydney_desc" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

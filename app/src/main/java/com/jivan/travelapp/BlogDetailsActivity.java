@@ -2,6 +2,7 @@ package com.jivan.travelapp;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class BlogDetailsActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView totalViews;
     private TextView textDescription;
+
+    private ProgressBar progressBar;
 //    public static final String IMAGE_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/images/sydney_image.jpg";
 //    public static final String AVATAR_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/avatars/avatar1.jpg";
 
@@ -64,6 +67,8 @@ public class BlogDetailsActivity extends AppCompatActivity {
         backIcon = findViewById(R.id.back_arrow);
         backIcon.setOnClickListener(v -> finish());
 
+        progressBar = findViewById(R.id.progressBar);
+
         loadData();
 
     }
@@ -83,6 +88,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
     }
 
     public void showData(Blog blog) {
+        progressBar.setVisibility(TextView.GONE);
         textTitle.setText(blog.getTitle());
         textAuthor.setText(blog.getAuthor().getName());
         textDate.setText(blog.getDate());
