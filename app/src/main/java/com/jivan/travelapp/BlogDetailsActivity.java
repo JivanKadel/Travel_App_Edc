@@ -84,7 +84,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError() {
-                runOnUiThread(()->showErrorSnackBar());
+                runOnUiThread(() -> showErrorSnackbar());
             }
         });
     }
@@ -109,15 +109,15 @@ public class BlogDetailsActivity extends AppCompatActivity {
                 .into(imageAvatar);
     }
 
-    private void showErrorSnackBar(){
+    private void showErrorSnackbar() {
         View rootView = findViewById(android.R.id.content);
-        Snackbar errorSnack = Snackbar.make(rootView, "Error loading blog articles", Snackbar.LENGTH_INDEFINITE);
-        errorSnack.setActionTextColor(getResources().getColor(R.color.orange500));
-
-        errorSnack.setAction("Retry", v->{
+        Snackbar snackbar = Snackbar.make(rootView,
+                "Error during loading blog articles", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.orange500));
+        snackbar.setAction("Retry", v -> {
             loadData();
-            errorSnack.dismiss();
+            snackbar.dismiss();
         });
-        errorSnack.show();
+        snackbar.show();
     }
 }
