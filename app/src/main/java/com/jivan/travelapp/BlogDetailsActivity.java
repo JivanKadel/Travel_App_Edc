@@ -1,6 +1,7 @@
 package com.jivan.travelapp;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -46,25 +47,25 @@ public class BlogDetailsActivity extends AppCompatActivity {
 //        Glide.with(this).load(AVATAR_URL).transform(new CircleCrop()).into(imageAvatar);
 
         textDate = findViewById(R.id.textDate);
-        textDate.setText("August 2, 2019");
+        textDate.setText(R.string.sydney_date);
 
         textTitle = findViewById(R.id.textTitle);
-        textTitle.setText("G'day from Sydney");
+        textTitle.setText(R.string.sydney_title);
 
         textAuthor = findViewById(R.id.sydney_guide_name);
-        textAuthor.setText("Grayson Wells");
+        textAuthor.setText(R.string.sydney_guide_name);
 
         textRating = findViewById(R.id.sydney_text_rating);
-        textRating.setText("4.4");
+        textRating.setText(R.string.sydney_rating);
 
         ratingBar = findViewById(R.id.sydney_guide_rating);
-        ratingBar.setRating(4.4F);
+        ratingBar.setRating((float) R.string.sydney_rating);
 
         totalViews = findViewById(R.id.sydney_views);
-        totalViews.setText("(2687 views)");
+        totalViews.setText(R.string.sydney_views);
 
         textDescription = findViewById(R.id.sydney_description);
-        textDescription.setText("Australia is one of the most beautiful place on the planet.");
+        textDescription.setText(R.string.sydney_desc);
 
         backIcon = findViewById(R.id.back_arrow);
         backIcon.setOnClickListener(v -> finish());
@@ -96,7 +97,8 @@ public class BlogDetailsActivity extends AppCompatActivity {
         textDate.setText(blog.getDate());
         textRating.setText(String.valueOf(blog.getRating()));
         totalViews.setText(String.format("(%d views)", blog.getViews()));
-        textDescription.setText(blog.getDescription());
+//        textDescription.setText(blog.getDescription());
+        textDescription.setText(Html.fromHtml(blog.getDescription()));
         ratingBar.setRating(blog.getRating());
 
         Glide.with(this).load(blog.getImage()).
