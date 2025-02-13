@@ -24,6 +24,9 @@ public class Blog {
     public String getImage() {
         return image;
     }
+    public String getImageUrl(){
+        return BlogHttpClient.BASE_URL + BlogHttpClient.PATH + getImage();
+    }
     public String getDescription() {
         return description;
     }
