@@ -1,8 +1,13 @@
 package com.jivan.travelapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
-public class Blog {
+public class Blog implements Parcelable {
     private String id;
     private String title;
     private String date;
@@ -11,6 +16,46 @@ public class Blog {
     private String image;
     private String description;
     private Author author;
+
+    protected Blog(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        date = in.readString();
+        views = in.readInt();
+        rating = in.readFloat();
+        image = in.readString();
+        description = in.readString();
+        author = in.readParcelable(Author.class.getClassLoader());
+    }
+
+    public static final Creator<Blog> CREATOR = new Creator<Blog>() {
+        @Override
+        public Blog createFromParcel(Parcel in) {
+            return new Blog(in);
+        }
+
+        @Override
+        public Blog[] newArray(int size) {
+            return new Blog[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(date);
+        parcel.writeInt(views);
+        parcel.writeFloat(rating);
+        parcel.writeString(image);
+        parcel.writeString(description);
+        parcel.writeParcelable(author, i);
+    }
 
     public String getTitle() {
         return title;
@@ -66,4 +111,5 @@ public class Blog {
     public int hashCode(){
         return Objects.hash(id, author, title, date, image, description, views, rating);
     }
+
 }

@@ -1,10 +1,43 @@
 package com.jivan.travelapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
-public class Author {
+public class Author implements Parcelable {
     private String name;
     private String avatar;
+
+    protected Author(Parcel in) {
+        name = in.readString();
+        avatar = in.readString();
+    }
+
+    public static final Creator<Author> CREATOR = new Creator<Author>() {
+        @Override
+        public Author createFromParcel(Parcel in) {
+            return new Author(in);
+        }
+
+        @Override
+        public Author[] newArray(int size) {
+            return new Author[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(avatar);
+    }
 
     public String getName() {
         return name;
@@ -25,7 +58,9 @@ public class Author {
         return Objects.equals(name, author.name) && Objects.equals(avatar, author.avatar);
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(name, avatar);
     }
+
+
 }
