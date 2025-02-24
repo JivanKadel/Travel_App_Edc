@@ -1,5 +1,7 @@
 package com.jivan.travelapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 public class BlogDetailsActivity extends AppCompatActivity {
+    private static final String EXTRAS_BLOG = "EXTRAS_BLOG";
+
     private ImageView imageMain;
     private ImageView imageAvatar;
     private ImageView backIcon;
@@ -31,8 +35,6 @@ public class BlogDetailsActivity extends AppCompatActivity {
     private TextView textDescription;
 
     private ProgressBar progressBar;
-//    public static final String IMAGE_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/images/sydney_image.jpg";
-//    public static final String AVATAR_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/3436e16367c8ec2312a0644bebd2694d484eb047/avatars/avatar1.jpg";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,11 +42,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blog_details);
 
         imageMain = findViewById(R.id.mainImage);
-//        Glide.with(this).load(IMAGE_URL).transition(DrawableTransitionOptions.withCrossFade()).into(imageMain);
-//        imageMain.setImageResource(R.drawable.sydney);
-
         imageAvatar = findViewById(R.id.imageAvatar);
-//        Glide.with(this).load(AVATAR_URL).transform(new CircleCrop()).into(imageAvatar);
 
         textDate = findViewById(R.id.textDate);
         textDate.setText(R.string.sydney_date);
@@ -72,8 +70,9 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
 
-        loadData();
+//        loadData();
 
+        showData(getIntent().getExtras().getParcelable(EXTRAS_BLOG));
     }
 
     public void loadData() {
@@ -88,6 +87,12 @@ public class BlogDetailsActivity extends AppCompatActivity {
                 runOnUiThread(() -> showErrorSnackbar());
             }
         });
+    }
+
+    public static void startBlogDetailsActivity(Activity activity, Blog blog){
+        Intent intent = new Intent(activity, BlogDetailsActivity.class);
+        intent.putExtra(EXTRAS_BLOG, blog);
+        activity.startActivity(intent);
     }
 
     public void showData(Blog blog) {
