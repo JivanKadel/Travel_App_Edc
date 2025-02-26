@@ -17,7 +17,19 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.jivan.travelapp.Blog;
 import com.jivan.travelapp.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
+
+    private OnItemClickListener blogClickListener;
+
+    public MainAdapter(OnItemClickListener blogClickListener) {
+        super(DIFF_CALLBACK);
+        this.blogClickListener = blogClickListener;
+    }
 
     public MainAdapter() {
         super(DIFF_CALLBACK);
@@ -27,12 +39,19 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
         void onItemClicked(Blog blog);
     }
 
-    private OnItemClickListener blogClickListener;
-
-    public MainAdapter(OnItemClickListener blogClickListener) {
-        super(DIFF_CALLBACK);
-        this.blogClickListener = blogClickListener;
+    // Sorting by data, title
+    public void sortByDate() {
+        List<Blog> currentList = new ArrayList<>(getCurrentList());
+        currentList.sort(Comparator.comparing(Blog::getDateMills));
+        submitList(currentList);
     }
+
+    public void sortByTitle() {
+        List<Blog> currentList = new ArrayList<>(getCurrentList());
+        currentList.sort(Comparator.comparing(Blog::getTitle));
+        submitList(currentList);
+    }
+
 
     public static final DiffUtil.ItemCallback<Blog> DIFF_CALLBACK = new DiffUtil.ItemCallback<Blog>() {
         @Override
@@ -68,7 +87,7 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
 
         MainViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            itemView.setOnClickListener(v->listener.onItemClicked(blog));
+            itemView.setOnClickListener(v -> listener.onItemClicked(blog));
             textTitle = itemView.findViewById(R.id.textTitle);
             textDate = itemView.findViewById(R.id.textDate);
             imageAvatar = itemView.findViewById(R.id.imageAvatar);
