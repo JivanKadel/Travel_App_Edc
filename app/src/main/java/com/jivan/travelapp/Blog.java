@@ -5,9 +5,15 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class Blog implements Parcelable {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yy");
     private String id;
     private String title;
     private String date;
@@ -65,6 +71,16 @@ public class Blog implements Parcelable {
         return date;
     }
 
+    public Long getDateMills() {
+        try {
+            Date date = dateFormat.parse(getDate());
+            return date != null ? date.getTime() : null;
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+
     public int getViews() {
         return views;
     }
@@ -108,7 +124,7 @@ public class Blog implements Parcelable {
                 && Objects.equals(description, blog.description);
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(id, author, title, date, image, description, views, rating);
     }
 
