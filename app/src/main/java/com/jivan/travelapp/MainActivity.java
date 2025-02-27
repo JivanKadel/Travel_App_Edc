@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +65,23 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        MenuItem searchItem = toolbar.getMenu().findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return true;
+            }
+        });
+
+
         adapter = new MainAdapter(blog -> BlogDetailsActivity.startBlogDetailsActivity(this, blog));
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -104,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(List<Blog> blogList) {
                 runOnUiThread(() -> {
                     refreshLayout.setRefreshing(false);
-                    adapter.submitList(blogList);
+                    adapter.setDate(blogList);
+//                    adapter.submitList(blogList);
+                    sortData();
                 });
             }
 
