@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,9 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
 public class Blog implements Parcelable {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yy");
+    @PrimaryKey
     private String id;
     private String title;
     private String date;
@@ -21,7 +26,19 @@ public class Blog implements Parcelable {
     private float rating;
     private String image;
     private String description;
+    @Embedded
     private Author author;
+
+    public Blog(String id, String title, String date, int views, float rating, String image, String description, Author author) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.views = views;
+        this.rating = rating;
+        this.image = image;
+        this.description = description;
+        this.author = author;
+    }
 
     protected Blog(Parcel in) {
         id = in.readString();
