@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,6 +19,8 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.jivan.travelapp.adapter.MainAdapter;
+import com.jivan.travelapp.repository.BlogRepository;
+import com.jivan.travelapp.repository.DataFromNetworkCallback;
 
 import java.util.List;
 
@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     private MainAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private BlogRepository repository;
 
     private static final int SORT_TITLE = 0;
     private static final int SORT_DATE = 1;
-
     private int currentSort = SORT_DATE;
 
     @Override
@@ -41,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View view = findViewById(R.id.main);
+        repository = new BlogRepository(getApplicationContext());
 
+        View view = findViewById(R.id.main);
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -89,42 +90,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         refreshLayout = findViewById(R.id.refresh);
-        refreshLayout.setOnRefreshListener(this::loadData);
+        refreshLayout.setOnRefreshListener(this::loadDataFromNetwork);
 
-//        startActivity(new Intent(this, BlogDetailsActivity.class));
-        loadData();
+        loadDataFromDatabase();
+        loadDataFromNetwork();
 
     }
 
-    private void onSortClicked() {
-        String[] sortBy = {"Title", "Date"};
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("Sort order")
-                .setSingleChoiceItems(sortBy, currentSort, (dialog, which) -> {
-                    dialog.dismiss();
-                    currentSort = which;
-                    sortData();
-                }).show();
+    private void loadDataFromDatabase() {
+        repository.loadDataFromDatabase((blogList) -> runOnUiThread(() -> {
+            adapter.setDate(blogList);
+            sortData();
+        }));
     }
 
-    public void sortData() {
-        if (currentSort == SORT_TITLE) {
-            adapter.sortByTitle();
-        } else if (currentSort == SORT_DATE) {
-            adapter.sortByDate();
-        }
-    }
-
-    private void loadData() {
+    private void loadDataFromNetwork() {
         refreshLayout.setRefreshing(true);
-        BlogHttpClient.INSTANCE.loadBlogArticles(new BlogArticlesCallback() {
+
+        repository.loadDataFromNetwork(new DataFromNetworkCallback() {
             @Override
             public void onSuccess(List<Blog> blogList) {
                 runOnUiThread(() -> {
-                    refreshLayout.setRefreshing(false);
                     adapter.setDate(blogList);
-//                    adapter.submitList(blogList);
                     sortData();
+                    refreshLayout.setRefreshing(false);
                 });
             }
 
@@ -138,12 +127,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void onSortClicked() {
+        String[] sortBy = {"Title", "Date"};
+        new MaterialAlertDialogBuilder(this).setTitle("Sort order").setSingleChoiceItems(sortBy, currentSort, (dialog, which) -> {
+            dialog.dismiss();
+            currentSort = which;
+            sortData();
+        }).show();
+    }
+
+    public void sortData() {
+        if (currentSort == SORT_TITLE) {
+            adapter.sortByTitle();
+        } else if (currentSort == SORT_DATE) {
+            adapter.sortByDate();
+        }
+    }
+
     private void showErrorSnackBar() {
         View rootView = findViewById(android.R.id.content);
-        Snackbar snackbar = Snackbar.make(rootView, "Error loading Blog Data", Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(rootView, "Error loading Blog Data", Snackbar.LENGTH_LONG);
         snackbar.setActionTextColor(getResources().getColor(R.color.orange500));
         snackbar.setAction("Retry", v -> {
-            loadData();
+            loadDataFromNetwork();
             snackbar.dismiss();
         });
         snackbar.show();
