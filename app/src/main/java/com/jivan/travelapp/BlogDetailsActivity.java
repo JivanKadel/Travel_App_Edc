@@ -16,9 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.util.List;
 
 public class BlogDetailsActivity extends AppCompatActivity {
     private static final String EXTRAS_BLOG = "EXTRAS_BLOG";
@@ -70,24 +68,9 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
 
-//        loadData();
-
         showData(getIntent().getExtras().getParcelable(EXTRAS_BLOG));
     }
 
-    public void loadData() {
-        BlogHttpClient.INSTANCE.loadBlogArticles(new BlogArticlesCallback() {
-            @Override
-            public void onSuccess(List<Blog> blogList) {
-                runOnUiThread(() -> showData(blogList.get(0)));
-            }
-
-            @Override
-            public void onError() {
-                runOnUiThread(() -> showErrorSnackbar());
-            }
-        });
-    }
 
     public static void startBlogDetailsActivity(Activity activity, Blog blog){
         Intent intent = new Intent(activity, BlogDetailsActivity.class);
@@ -102,7 +85,6 @@ public class BlogDetailsActivity extends AppCompatActivity {
         textDate.setText(blog.getDate());
         textRating.setText(String.valueOf(blog.getRating()));
         totalViews.setText(String.format("(%d views)", blog.getViews()));
-//        textDescription.setText(blog.getDescription());
         textDescription.setText(Html.fromHtml(blog.getDescription()));
         ratingBar.setRating(blog.getRating());
 
@@ -116,15 +98,4 @@ public class BlogDetailsActivity extends AppCompatActivity {
                 .into(imageAvatar);
     }
 
-    private void showErrorSnackbar() {
-        View rootView = findViewById(android.R.id.content);
-        Snackbar snackbar = Snackbar.make(rootView,
-                "Error during loading blog articles", Snackbar.LENGTH_INDEFINITE);
-        snackbar.setActionTextColor(getResources().getColor(R.color.orange500));
-        snackbar.setAction("Retry", v -> {
-            loadData();
-            snackbar.dismiss();
-        });
-        snackbar.show();
-    }
 }
