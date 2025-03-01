@@ -19,7 +19,7 @@ public class Blog implements Parcelable {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yy");
     @PrimaryKey
-    private String id;
+   @NonNull private String id;
     private String title;
     private String date;
     private int views;
